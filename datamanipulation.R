@@ -15,3 +15,20 @@ tidy_gdp <- year_country_gbp2 %>%
          )
 #renaming column
 head(tidy_gdp)
+#annual gdp for europe
+
+year_country_gdp_euro <- gapminder %>%
+  filter(continent=="Europe") %>% 
+  select(year, country, gdpPercap)
+View(year_country_gdp_euro
+     )
+europe_lefeExp_2007 <- gapminder %>%
+  filter(continent == "Europe", year ==2007) %>%
+  select(country, lifeExp)
+View(europe_lefeExp_2007)
+
+africa_lefe <- gapminder %>%
+  filter(continent == "Africa") %>%
+  select(lifeExp, country, year)
+View(africa_lefe)
+## shift ctrl m brings the pipe
