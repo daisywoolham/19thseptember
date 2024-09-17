@@ -58,3 +58,39 @@ avg_life_exp %>%
 #sort alphabetically by country
 avg_life_exp %>% 
   arrange(desc(country))
+##sort and summarise by 2 variables
+gdp_by_continent_by_year <- gapminder %>% 
+  group_by(continent,year) %>% 
+  summarize(mean_gdp_Per_cap=mean(gdpPercap) ,
+            sd_gdp_percap=sd(gdpPercap) ,
+            mean_pop = mean(pop))
+view(gdp_by_continent_by_year)
+##count
+gapminder %>% 
+  filter(year==2002)%>% 
+  count(continent, sort = TRUE)
+
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(se_le=sd(lifeExp)/sqrt(n()))
+#n is a proxy for the county of the data per continent
+
+##mutate
+gdp_pop_by_continents_by_year <- gapminder %>% 
+  mutate (gdp_billion = gdpPercap*pop/10^9) %>% 
+group_by (continent, year) %>% 
+  summarize (mean_gdpPercap = mean(gdpPercap) ,  
+             sd_gdpperCap = sd(gdpPercap) , 
+             mean_gdp_billion = mean(gdp_billion) ,  
+             sd_gdp_billion = sd(gdp_billion))
+head(gdp_pop_by_continents_by_year)
+#filter
+
+gdp_pop_by_continents_by_year_above_55 <- gapminder %>% 
+  mutate (gdp_billion = ifelse(lifeExp> 55, gdpPercap*pop/10^9, NA)) %>% 
+  group_by (continent, year) %>% 
+  summarize (mean_gdpPercap = mean(gdpPercap) ,  
+             sd_gdpperCap = sd(gdpPercap) , 
+             mean_gdp_billion = mean(gdp_billion) ,  
+             sd_gdp_billion = sd(gdp_billion))
+head(gdp_pop_by_continents_by_year_above_55)
