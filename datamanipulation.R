@@ -32,3 +32,12 @@ africa_lefe <- gapminder %>%
   select(lifeExp, country, year)
 View(africa_lefe)
 ## shift ctrl m brings the pipe
+str(gapminder)
+str(gapminder %>% group_by(continent))
+##group by lays things out a bit differently
+
+gdp_by_continents <- gapminder %>% 
+  group_by(continent) %>% 
+summarize(mean_gdpPercap=mean(gdpPercap), 
+          median=median(gdpPercap)) 
+##as we've grouped, we have to use summarise to get an overview
