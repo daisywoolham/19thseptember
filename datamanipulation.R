@@ -40,4 +40,21 @@ gdp_by_continents <- gapminder %>%
   group_by(continent) %>% 
 summarize(mean_gdpPercap=mean(gdpPercap), 
           median=median(gdpPercap)) 
-##as we've grouped, we have to use summarise to get an overview
+##as we've grouped, we have to use summarise to get an overview- group and summarise go together
+
+avg_life_exp <- gapminder %>% 
+  group_by(country) %>% 
+  summarize (mean_life_exp=mean(lifeExp),
+             min=min(lifeExp),
+             max=max(lifeExp))
+avg_life_exp <- gapminder %>% 
+  group_by(country) %>% 
+  summarize (mean_life_exp=mean)
+avg_life_exp %>% 
+  filter(mean_life_exp==min(mean_life_exp)|(mean_life_exp==max(mean_life_exp)))
+avg_life_exp %>% 
+  arrange(mean_life_exp) %>% 
+  head(1)
+#sort alphabetically by country
+avg_life_exp %>% 
+  arrange(desc(country))
